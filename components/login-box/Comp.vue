@@ -13,7 +13,7 @@ import {
   Checkbox as ACheckbox,
   Divider as ADivider,
 } from 'ant-design-vue'
-import { QuestionCircleOutlined } from '@ant-design/icons-vue'
+import { QuestionCircleOutlined, UserOutlined, UnlockOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
 
 const router = useRouter()
 const username = ref()
@@ -30,14 +30,20 @@ const handleLogin = () => {
       <a-typography-title :level="2">Oneboot</a-typography-title>
       <a-form>
         <a-form-item>
-          <a-input v-model:value="username" allow-clear placeholder="账号"></a-input>
+          <a-input v-model:value="username" allow-clear placeholder="账号">
+            <template #prefix><UserOutlined /></template>
+          </a-input>
         </a-form-item>
         <a-form-item>
-          <a-input-password v-model:value="password" placeholder="密码"></a-input-password>
+          <a-input-password v-model:value="password" placeholder="密码">
+            <template #prefix><UnlockOutlined /></template>
+          </a-input-password>
         </a-form-item>
         <a-form-item>
           <a-input-group compact>
-            <a-input v-model:value="validateCode" placeholder="验证码" style="width: 50%"></a-input>
+            <a-input v-model:value="validateCode" placeholder="验证码" style="width: 50%">
+              <template #prefix><CheckCircleOutlined /></template>
+            </a-input>
             <a-input v-model:value="validateCode" placeholder="验证码" style="width: 50%"></a-input>
           </a-input-group>
         </a-form-item>
@@ -58,21 +64,22 @@ const handleLogin = () => {
         </a-form-item>
       </a-form>
       <div>
-        <a-divider style="font-size: 0.75rem">第三方登录</a-divider>
         <a-form-item>
-          <a-flex gap="middle" horizontal>
-            <div class="form-item-content">
-              <a-button type="link" title="微信登录"><IconsWeXin /></a-button>
-            </div>
-            <div class="form-item-content">
-              <a-button type="link" title="支付宝登录"><IconsZhiFuBao /></a-button>
-            </div>
-            <div class="form-item-content">
-              <a-button type="link" title="QQ登录"><IconsQQ /></a-button>
-            </div>
-            <div class="form-item-content">
-              <a-button type="link" title="微博登录"><IconsWeiBo /></a-button>
-            </div>
+          <a-flex gap="middle" justify="space-between" horizontal>
+            <a-button class="form-item-content">手机登录</a-button>
+            <a-button class="form-item-content">二维码登录</a-button>
+            <a-button class="form-item-content">注册</a-button>
+          </a-flex>
+        </a-form-item>
+      </div>
+      <div>
+        <a-divider style="font-size: 0.75rem">第三方登录</a-divider>
+        <a-form-item style="display: flex">
+          <a-flex gap="middle" justify="space-around" horizontal>
+            <a-button class="form-item-content" type="link" title="微信登录"><IconsWeXin /></a-button>
+            <a-button class="form-item-content" type="link" title="支付宝登录"><IconsZhiFuBao /></a-button>
+            <a-button class="form-item-content" type="link" title="QQ登录"><IconsQQ /></a-button>
+            <a-button class="form-item-content" type="link" title="微博登录"><IconsWeiBo /></a-button>
           </a-flex>
         </a-form-item>
       </div>
@@ -97,6 +104,6 @@ form {
   width: 100%;
 }
 .form-item-content {
-  width: 25%;
+  width: 100%;
 }
 </style>

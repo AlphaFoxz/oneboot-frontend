@@ -2,19 +2,29 @@
 import { LayoutSider as ALayoutSider, Menu as AMenu } from 'ant-design-vue'
 import { HomeFilled, SettingFilled } from '@ant-design/icons-vue'
 
+// ==========主题
 const antdConfigStore = useAntdConfigStore()
 const themeName = ref(antdConfigStore.getThemeName())
 watch(antdConfigStore.getThemeState(), () => {
   themeName.value = antdConfigStore.getThemeName()
 })
-
+// ==========媒体类型
+const appConfigStore = useAppConfigStore()
+const mediaName = appConfigStore.getMediaState()
+watch(mediaName, () => {
+  if (mediaName.value === 'pad') {
+    state.collapsed = true
+  } else if (mediaName.value === 'desktop') {
+    state.collapsed = false
+  }
+})
 const state = reactive({
   collapsed: false,
 })
 const selectedKeys = ref()
 const items = ref([
   {
-    key: '1',
+    key: '-1',
     icon: h(HomeFilled),
     label: '首页',
     title: '首页',
@@ -29,9 +39,20 @@ const items = ref([
 </script>
 
 <template>
-  <a-layout-sider class="sider" theme="light" v-model:collapsed="state.collapsed" collapsible>
+  <a-layout-sider
+    v-if="mediaName !== 'phone'"
+    class="sider"
+    theme="light"
+    v-model:collapsed="state.collapsed"
+    collapsible
+  >
     <div class="logo" />
-    <a-menu v-model:selectedKeys="selectedKeys" :items="items" :mode="state.collapsed ? 'vertical' : 'inline'"></a-menu>
+    <a-menu
+      v-model:selectedKeys="selectedKeys"
+      :items="items"
+      :mode="state.collapsed ? 'vertical' : 'inline'"
+      :style="{ border: 0 }"
+    ></a-menu>
   </a-layout-sider>
 </template>
 

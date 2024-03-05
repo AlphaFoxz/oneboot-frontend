@@ -14,7 +14,7 @@ import { Layout as ALayout } from 'ant-design-vue'
   </a-layout>
 </template>
 
-<style>
+<style scoped lang="scss">
 .login-root {
   user-select: none;
 }
@@ -22,6 +22,12 @@ import { Layout as ALayout } from 'ant-design-vue'
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  @include respond-to('pad') {
+    display: none;
+  }
+  @include respond-to('phone') {
+    display: none;
+  }
 }
 .login-container {
   width: 100vw;
