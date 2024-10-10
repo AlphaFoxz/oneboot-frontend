@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { ConfigProvider as AConfigProvider, Space as ASpace } from 'ant-design-vue'
-
 const antdConfigStore = useAntdConfigStore()
-const theme = antdConfigStore.getThemeState()
-const locale = antdConfigStore.getLocaleState()
+
+const colorMode = useColorMode()
+colorMode.preference = antdConfigStore.action.getThemeName()
+
+const appConfigStore = useAppConfigStore()
+watch(appConfigStore.state.currentColorMode, (v) => {
+  colorMode.value = v
+})
 </script>
 
 <template>
-  <a-config-provider :theme="theme" :locale="locale">
-    <!-- <a-space direction="vertical" :style="{ width: '100%', margin: '0' }" :size="[0, 48]"> -->
-    <NuxtPage />
-    <!-- </a-space> -->
-  </a-config-provider>
+  <NuxtPage />
 </template>
+
+<style lang="scss"></style>

@@ -1,9 +1,8 @@
 {
   "recommendations": [
     "codeium.codeium",
-    "vue.vscode-typescript-vue-plugin",
-    "vue.volar",
-    "bradlc.vscode-tailwindcss",
     "esbenp.prettier-vscode",
+    "lokalise.i18n-ally",
+    "vue.volar",
   ]
 }

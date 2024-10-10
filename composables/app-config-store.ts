@@ -1,15 +1,15 @@
-const panelOpened = ref(false)
-function setPanelOpened(value: boolean) {
-  panelOpened.value = value
-}
+type ColorModeType = 'light' | 'dark'
+
+const optionDrawerOpened = ref(false)
+const currentColorMode = ref<ColorModeType>('light')
 
 const svgColor = ref()
 const SVG_COLOR_KEY = 'app-svg-color'
-setSvgColor(localStorage.getItem(SVG_COLOR_KEY) || '#000')
 function setSvgColor(value: string) {
   svgColor.value = value
   localStorage.setItem(SVG_COLOR_KEY, value)
 }
+setSvgColor(localStorage.getItem(SVG_COLOR_KEY) || '#000')
 
 type LayoutType = 'vertical'
 const layout = ref<LayoutType>('vertical')
@@ -40,13 +40,23 @@ document.body.onresize = () => {
 }
 refreshMedia()
 
-export const useAppConfigStore = () => {
+export function useAppConfigStore() {
   return {
-    getPanelOpenedState: () => panelOpened,
-    setPanelOpened,
-    getSvgColorState: () => svgColor,
-    setSvgColor,
-    getMediaState: () => media,
-    setLayout,
+    state: {
+      currentColorMode,
+      optionDrawerOpened,
+      media,
+      svgColor,
+    },
+    action: {
+      setColorMode(value: ColorModeType) {
+        currentColorMode.value = value
+      },
+      setOptionDrawerOpened(value: boolean) {
+        optionDrawerOpened.value = value
+      },
+      setSvgColor,
+      setLayout,
+    },
   }
 }

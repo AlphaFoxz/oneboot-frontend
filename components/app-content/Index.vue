@@ -4,7 +4,7 @@ import { LayoutContent as ALayoutContent } from 'ant-design-vue'
 
 <template>
   <a-layout-content>
-    <AppFrameComp />
+    <AppFrame />
   </a-layout-content>
 </template>
 

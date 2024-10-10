@@ -1,10 +1,14 @@
-@mixin respond-to($media) {
+@mixin respondTo($media) {
   @if $media == 'pad' {
     @media only screen and (max-width: 990px) {
       @content;
     }
-  } @else if $media == 'phone' {
+  } @else if $media == 'mobile' {
     @media only screen and (max-width: 760px) {
+      @content;
+    }
+  } @else if $media == 'pc' {
+    @media only screen and (min-width: 990px) {
       @content;
     }
   }

@@ -4,11 +4,11 @@ import { Layout as ALayout } from 'ant-design-vue'
 
 <template>
   <a-layout style="min-height: 100vh">
-    <AppSiderComp />
+    <AppSider />
     <a-layout>
-      <AppOptionComp></AppOptionComp>
-      <AppHeaderComp></AppHeaderComp>
-      <AppContentComp></AppContentComp>
+      <AppOption></AppOption>
+      <AppHeader></AppHeader>
+      <AppContent></AppContent>
     </a-layout>
   </a-layout>
 </template>

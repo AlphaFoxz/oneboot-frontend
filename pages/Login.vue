@@ -3,15 +3,13 @@ import { Layout as ALayout } from 'ant-design-vue'
 </script>
 
 <template>
-  <a-layout>
-    <div class="login-root">
-      <AppThemeAndLocaleComp></AppThemeAndLocaleComp>
-      <div class="login-container">
-        <div class="image"><IconsLoginBanner /></div>
-        <LoginBoxComp></LoginBoxComp>
-      </div>
+  <div class="login-root">
+    <AppThemeAndLocale></AppThemeAndLocale>
+    <div class="login-container">
+      <div class="image"><IconsLoginBanner /></div>
+      <LoginBox class="login-box"></LoginBox>
     </div>
-  </a-layout>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -22,10 +20,10 @@ import { Layout as ALayout } from 'ant-design-vue'
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  @include respond-to('pad') {
+  @include respondTo('pad') {
     display: none;
   }
-  @include respond-to('phone') {
+  @include respondTo('phone') {
     display: none;
   }
 }
@@ -33,9 +31,16 @@ import { Layout as ALayout } from 'ant-design-vue'
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 18rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   padding: 0 2rem;
+
+  .login-box {
+    @include respondTo('pc') {
+      margin-left: 50px;
+      margin-right: 200px;
+    }
+  }
 }
 </style>

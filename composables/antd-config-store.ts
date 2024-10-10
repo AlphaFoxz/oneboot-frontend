@@ -2,6 +2,7 @@ import enUS from 'ant-design-vue/es/locale/en_US'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { theme } from 'ant-design-vue'
 
+const appConfigStore = useAppConfigStore()
 // 主题
 type ThemeType = 'light' | 'dark'
 const THEME_KEY = 'antd-theme'
@@ -9,7 +10,7 @@ const currentTheme = ref()
 setTheme(getThemeName())
 const currentLocale = ref(zhCN)
 function getThemeName(): ThemeType {
-  return (localStorage.getItem(THEME_KEY) as ThemeType) || 'light'
+  return (localStorage.getItem(THEME_KEY) as ThemeType) || 'dark'
 }
 function setTheme(value: ThemeType) {
   switch (value) {
@@ -25,6 +26,7 @@ function setTheme(value: ThemeType) {
       }
       localStorage.setItem(THEME_KEY, 'light')
   }
+  appConfigStore.action.setColorMode(value)
 }
 // 语言
 type LocaleType = 'en-US' | 'zh-CN'
@@ -38,12 +40,16 @@ function setLocale(value: LocaleType) {
   }
 }
 
-export const useAntdConfigStore = () => {
+export function useAntdConfigStore() {
   return {
-    getThemeName,
-    getThemeState: () => currentTheme,
-    setTheme,
-    getLocaleState: () => currentLocale,
-    setLocale,
+    state: {
+      currentTheme,
+      currentLocale,
+    },
+    action: {
+      getThemeName,
+      setTheme,
+      setLocale,
+    },
   }
 }
