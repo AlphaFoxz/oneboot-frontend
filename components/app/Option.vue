@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Space as ASpace } from 'ant-design-vue'
 import Drawer from 'primevue/drawer'
 import SelectButton from 'primevue/selectbutton'
 import Divider from 'primevue/divider'
@@ -17,19 +16,18 @@ function handleClose() {
   appConfigStore.action.setOptionDrawerOpened(false)
 }
 
-const antdConfigStore = useAntdConfigStore()
-const theme = ref(antdConfigStore.action.getThemeName())
-watch(antdConfigStore.state.currentTheme, () => {
-  theme.value = antdConfigStore.action.getThemeName()
+const theme = ref()
+watchEffect(() => {
+  theme.value = appConfigStore.state.colorMode.value
 })
 function handleChangeTheme() {
-  antdConfigStore.action.setTheme(theme.value)
+  appConfigStore.action.setColorMode(theme.value)
 }
 </script>
 
 <template>
   <Drawer position="right" v-model:visible="opened" @hide="handleClose">
-    项目配置
+    <h2>项目配置</h2>
     <Divider layout="horizontal">主题</Divider>
     <SelectButton
       v-model="theme"
@@ -39,11 +37,17 @@ function handleChangeTheme() {
       @change="handleChangeTheme"
     >
       <template #option="slotProps">
-        <a-space v-if="slotProps.option.value === 'light'"><IconsSun class="icon" />浅色</a-space>
-        <a-space v-if="slotProps.option.value === 'dark'"><IconsSun class="icon" />深色</a-space>
+        <LayoutSpace wrap-flex margin="0" style v-if="slotProps.option.value === 'light'">
+          <IconsSun class="icon" />
+          <label>浅色</label>
+        </LayoutSpace>
+        <!-- <a-space v-if="slotProps.option.value === 'light'"><IconsSun class="icon" />浅色</a-space> -->
+        <LayoutSpace wrap-flex margin="0" v-if="slotProps.option.value === 'dark'">
+          <IconsSun class="icon" />
+          <label>深色</label>
+        </LayoutSpace>
       </template>
     </SelectButton>
-
     <Divider layout="horizontal">界面显示</Divider>
   </Drawer>
 </template>
@@ -53,5 +57,8 @@ function handleChangeTheme() {
   width: 100%;
   height: 18px;
   vertical-align: sub;
+}
+label {
+  text-wrap: nowrap;
 }
 </style>

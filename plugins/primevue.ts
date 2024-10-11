@@ -1,5 +1,6 @@
 import Aura from '@primevue/themes/aura'
 import Tooltip from 'primevue/tooltip'
+import ToastService from 'primevue/toastservice'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const primevue = usePrimeVue()
@@ -11,5 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       cssLayer: false,
     },
   }
-  nuxtApp.vueApp.directive('tooltip', Tooltip)
+  const app = nuxtApp.vueApp
+  app.directive('tooltip', Tooltip)
+  app.use(ToastService)
 })

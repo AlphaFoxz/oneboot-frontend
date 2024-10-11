@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
   LayoutHeader as ALayoutHeader,
-  Space as ASpace,
   Tabs as ATabs,
   TabPane as ATabPane,
   Breadcrumb as ABreadcrumb,
@@ -9,21 +8,22 @@ import {
 import { SettingOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import Button from 'primevue/button'
 
-const antdConfigStore = useAntdConfigStore()
+const appConfigStore = useAppConfigStore()
+
 const bgColor = ref()
-setColor(antdConfigStore.action.getThemeName())
-watch(antdConfigStore.state.currentTheme, () => {
-  setColor(antdConfigStore.action.getThemeName())
+watchEffect(() => {
+  setColor(appConfigStore.state.colorMode.value)
 })
-function setColor(themeName: string) {
+function setColor(themeName: 'light' | 'dark') {
   if (themeName === 'dark') {
     bgColor.value = '#000'
-  } else {
+  } else if (themeName === 'light') {
     bgColor.value = '#fff'
+  } else {
+    isNever(themeName)
   }
 }
 
-const appConfigStore = useAppConfigStore()
 const mediaName = appConfigStore.state.media
 function handleOpenSettings() {
   appConfigStore.action.setOptionDrawerOpened(true)
@@ -35,7 +35,7 @@ const activeKey = ref()
 <template>
   <a-layout-header class="header" :style="{ background: bgColor }">
     <div class="header-line">
-      <a-space>
+      <LayoutSpace wrap-flex margin="0">
         <Button v-if="mediaName === 'phone'" @click="handleOpenSettings" style="position: absolute; top: 0; left: 0px">
           <MenuUnfoldOutlined></MenuUnfoldOutlined>
         </Button>
@@ -43,7 +43,7 @@ const activeKey = ref()
         <Button text severity="secondary" @click="handleOpenSettings" style="position: absolute; top: 0; right: 0px">
           <SettingOutlined></SettingOutlined>
         </Button>
-      </a-space>
+      </LayoutSpace>
     </div>
     <div class="header-line">
       <a-tabs v-model:activeKey="activeKey" class="tabs" size="small" type="editable-card" hide-add>

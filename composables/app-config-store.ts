@@ -1,16 +1,37 @@
-type ColorModeType = 'light' | 'dark'
+import { createStore } from 'tinybase/with-schemas'
+import { createLocalPersister } from 'tinybase/persisters/persister-browser/with-schemas'
 
+const store = createStore().setValuesSchema({
+  colorMode: { type: 'string' },
+  layout: { type: 'string' },
+})
+const persister = createLocalPersister(store, 'appConfigStore')
+await persister.load()
+
+// ================== 设置：抽屉视图打开 ====================
 const optionDrawerOpened = ref(false)
-const currentColorMode = ref<ColorModeType>('light')
-
-const svgColor = ref()
-const SVG_COLOR_KEY = 'app-svg-color'
-function setSvgColor(value: string) {
-  svgColor.value = value
-  localStorage.setItem(SVG_COLOR_KEY, value)
+function setOptionDrawerOpened(value: boolean) {
+  optionDrawerOpened.value = value
 }
-setSvgColor(localStorage.getItem(SVG_COLOR_KEY) || '#000')
 
+// ================== 主题颜色 ====================
+type ColorModeType = 'light' | 'dark'
+const currentColorMode = ref<ColorModeType>((store.getValue('colorMode') as ColorModeType) || 'light')
+async function setColorMode(value: ColorModeType) {
+  currentColorMode.value = value
+  store.setValue('colorMode', value)
+  await persister.save()
+}
+const svgColor = ref()
+watchEffect(() => {
+  if (currentColorMode.value === 'light') {
+    svgColor.value = '#000'
+  } else if (currentColorMode.value === 'dark') {
+    svgColor.value = '#fff'
+  }
+})
+
+// ================== 布局 ====================
 type LayoutType = 'vertical'
 const layout = ref<LayoutType>('vertical')
 function setLayout(v: LayoutType) {
@@ -19,6 +40,7 @@ function setLayout(v: LayoutType) {
 }
 setLayout('vertical')
 
+// ================== 媒体类型 ====================
 type MediaType = 'desktop' | 'pad' | 'phone'
 const media = ref<MediaType>('desktop')
 function refreshMedia(clientWidth = document.body.clientWidth) {
@@ -35,28 +57,29 @@ function refreshMedia(clientWidth = document.body.clientWidth) {
     media.value = t
   }
 }
+const throttledRefreshMedia = FnUtil.throttle(refreshMedia, 5)
 document.body.onresize = () => {
-  refreshMedia()
+  throttledRefreshMedia()
 }
 refreshMedia()
 
+// ================== 导出函数 ===================
+
+const api = {
+  state: {
+    colorMode: readonly(currentColorMode),
+    layout: readonly(layout),
+    optionDrawerOpened: readonly(optionDrawerOpened),
+    media: readonly(media),
+    svgColor: readonly(svgColor),
+  },
+  action: {
+    setColorMode,
+    setOptionDrawerOpened,
+    setLayout,
+  },
+}
+
 export function useAppConfigStore() {
-  return {
-    state: {
-      currentColorMode,
-      optionDrawerOpened,
-      media,
-      svgColor,
-    },
-    action: {
-      setColorMode(value: ColorModeType) {
-        currentColorMode.value = value
-      },
-      setOptionDrawerOpened(value: boolean) {
-        optionDrawerOpened.value = value
-      },
-      setSvgColor,
-      setLayout,
-    },
-  }
+  return api
 }

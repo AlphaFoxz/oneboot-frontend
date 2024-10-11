@@ -1,26 +1,15 @@
 <script setup lang="ts">
-import { Menu as AMenu } from 'ant-design-vue'
 import ToggleSwitch from 'primevue/toggleswitch'
 import Popover from 'primevue/popover'
 import Listbox from 'primevue/listbox'
 
 const opRef = ref()
-const antdConfigStore = useAntdConfigStore()
 const appConfigStore = useAppConfigStore()
-const isLightTheme = ref(appConfigStore.state.currentColorMode.value === 'light')
+const isLightTheme = ref(appConfigStore.state.colorMode.value === 'light')
 const locale = ref()
 const handleThemeChange = () => {
   appConfigStore.action.setColorMode(isLightTheme.value ? 'light' : 'dark')
-  if (isLightTheme.value) {
-    appConfigStore.action.setSvgColor('#000')
-  } else {
-    appConfigStore.action.setSvgColor('#fff')
-  }
 }
-watch(locale, (n) => {
-  antdConfigStore.action.setLocale(n)
-  // opRef.value.hide()
-})
 function toggle() {
   opRef.value.toggle(event)
 }
@@ -60,8 +49,5 @@ function toggle() {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-svg {
-  vertical-align: top;
 }
 </style>

@@ -2,12 +2,6 @@
 import { LayoutSider as ALayoutSider, Menu as AMenu } from 'ant-design-vue'
 import { HomeFilled, SettingFilled } from '@ant-design/icons-vue'
 
-// ==========主题
-const antdConfigStore = useAntdConfigStore()
-const themeName = ref(antdConfigStore.action.getThemeName())
-watch(antdConfigStore.state.currentTheme, () => {
-  themeName.value = antdConfigStore.action.getThemeName()
-})
 // ==========媒体类型
 const appConfigStore = useAppConfigStore()
 const mediaName = appConfigStore.state.media

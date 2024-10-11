@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import { Layout as ALayout } from 'ant-design-vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="login-root">

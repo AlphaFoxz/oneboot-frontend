@@ -1,17 +1,19 @@
 <script setup lang="ts">
-const antdConfigStore = useAntdConfigStore()
-
-const colorMode = useColorMode()
-colorMode.preference = antdConfigStore.action.getThemeName()
+import Toast from 'primevue/toast'
 
 const appConfigStore = useAppConfigStore()
-watch(appConfigStore.state.currentColorMode, (v) => {
+
+const colorMode = useColorMode()
+colorMode.preference = appConfigStore.state.colorMode.value
+
+watch(appConfigStore.state.colorMode, (v) => {
   colorMode.value = v
 })
 </script>
 
 <template>
+  <Toast position="top-center" />
   <NuxtPage />
 </template>
 
-<style lang="scss"></style>
+<style scoped lang="scss"></style>

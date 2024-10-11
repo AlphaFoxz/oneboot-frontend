@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Space as ASpace, TypographyTitle as ATypographyTitle } from 'ant-design-vue'
 import { QuestionCircleOutlined, UserOutlined, UnlockOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
 import InputGroup from 'primevue/inputgroup'
 import InputGroupAddon from 'primevue/inputgroupaddon'
@@ -9,37 +8,40 @@ import Button from 'primevue/button'
 import ButtonGroup from 'primevue/buttongroup'
 import Checkbox from 'primevue/checkbox'
 import Divider from 'primevue/divider'
+import { useToast } from 'primevue/usetoast'
 
+const toast = useToast()
 const router = useRouter()
 const username = ref()
 const password = ref()
 const validateCode = ref()
 const handleLogin = () => {
-  router.push('/')
+  router.push('/home')
+  toast.add({ severity: 'success', life: 3000, summary: '登录成功', detail: '欢迎回来' })
 }
 </script>
 
 <template>
   <div class="login-box">
     <form class="login-form">
-      <a-typography-title :level="2">Oneboot</a-typography-title>
-      <div>
+      <h1>Oneboot</h1>
+      <LayoutSpace wrapFlex margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
             <UserOutlined />
           </InputGroupAddon>
           <InputText v-model="username" placeholder="账号" />
         </InputGroup>
-      </div>
-      <div>
+      </LayoutSpace>
+      <LayoutSpace wrapFlex margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
             <UnlockOutlined />
           </InputGroupAddon>
           <Password v-model="password" :feedback="false" placeholder="密码" />
         </InputGroup>
-      </div>
-      <div>
+      </LayoutSpace>
+      <LayoutSpace wrapFlex margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
             <CheckCircleOutlined />
@@ -47,30 +49,28 @@ const handleLogin = () => {
           <InputText v-model="validateCode"></InputText>
           <InputText v-model="validateCode" placeholder="验证码"></InputText>
         </InputGroup>
-      </div>
-      <div>
-        <a-space>
-          <Checkbox inputId="rememberMe"></Checkbox>
-          <label for="rememberMe">七天内免登录</label>
-          <Button
-            text
-            severity="secondary"
-            v-tooltip.top="`勾选并登录后，规定天数内无需输入用户名和密码会自动登入系统`"
-            style="cursor: default"
-            ><QuestionCircleOutlined
-          /></Button>
-          <Button label="忘记密码" text severity="info"></Button>
-        </a-space>
-      </div>
+      </LayoutSpace>
+      <LayoutSpace wrapFlex margin="0.5rem 0">
+        <Checkbox inputId="rememberMe"></Checkbox>
+        <label for="rememberMe">七天内免登录</label>
+        <Button
+          text
+          severity="secondary"
+          v-tooltip.top="`勾选并登录后，规定天数内无需输入用户名和密码会自动登入系统`"
+          style="cursor: default"
+          ><QuestionCircleOutlined
+        /></Button>
+        <Button label="忘记密码" text severity="info"></Button>
+      </LayoutSpace>
       <div>
         <Button id="login-btn" @click="handleLogin" label="登录" severity="info"></Button>
       </div>
-      <div style="display: flex; justify-content: space-around">
+      <LayoutSpace wrapFlex margin="1rem 0" style="justify-content: space-around">
         <Button label="手机登录" severity="secondary" outlined></Button>
         <Button label="二维码登录" severity="secondary" outlined></Button>
         <Button label="注册" severity="secondary" outlined></Button>
-      </div>
-      <div style="display: flex">
+      </LayoutSpace>
+      <div>
         <Divider><label>第三方登录</label></Divider>
       </div>
       <div>
