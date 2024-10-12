@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '@logicflow/core/lib/style/index.css'
 import LogicFlow from '@logicflow/core'
-import { Control, Menu, DndPanel } from '@logicflow/extension'
+import { Menu } from '@logicflow/extension'
 
 const props = defineProps({
   data: {
@@ -12,8 +12,9 @@ const props = defineProps({
 const containerRef = ref<HTMLDivElement>()
 const lf = shallowRef<LogicFlow>()
 onMounted(() => {
-  lf.value = new LogicFlow({ container: containerRef.value!, grid: true, plugins: [Control, DndPanel, Menu] })
+  lf.value = new LogicFlow({ container: containerRef.value!, grid: true, plugins: [Menu], adjustEdgeStartAndEnd: true })
   lf.value.render(props.data)
+  // lf.value.graphModel
 })
 </script>
 

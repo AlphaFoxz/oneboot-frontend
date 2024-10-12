@@ -2,6 +2,7 @@
 import ToggleSwitch from 'primevue/toggleswitch'
 import Popover from 'primevue/popover'
 import Listbox from 'primevue/listbox'
+import Button from 'primevue/button'
 
 const opRef = ref()
 const userPreferenceStore = useUserPreferenceStore()
