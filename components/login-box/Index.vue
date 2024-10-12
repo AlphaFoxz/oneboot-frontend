@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { QuestionCircleOutlined, UserOutlined, UnlockOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
 import InputGroup from 'primevue/inputgroup'
 import InputGroupAddon from 'primevue/inputgroupaddon'
 import InputText from 'primevue/inputtext'
@@ -15,20 +14,20 @@ const router = useRouter()
 const username = ref()
 const password = ref()
 const validateCode = ref()
-const handleLogin = () => {
-  router.push('/welcome')
+const handleLogin = FnUtil.throttle(function () {
   toast.add({ severity: 'success', life: 3000, summary: '登录成功', detail: '欢迎回来' })
-}
+  router.push('/admin/welcome')
+}, 3000)
 </script>
 
 <template>
   <div class="login-box">
-    <form class="login-form">
+    <form class="login-form" @submit.prevent="handleLogin">
       <h1>Oneboot</h1>
       <LayoutSpace wrapFlex margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
-            <UserOutlined />
+            <i class="pi pi-user"></i>
           </InputGroupAddon>
           <InputText v-model="username" placeholder="账号" />
         </InputGroup>
@@ -36,7 +35,7 @@ const handleLogin = () => {
       <LayoutSpace wrapFlex margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
-            <UnlockOutlined />
+            <i class="pi pi-key"></i>
           </InputGroupAddon>
           <Password v-model="password" :feedback="false" placeholder="密码" />
         </InputGroup>
@@ -44,26 +43,25 @@ const handleLogin = () => {
       <LayoutSpace wrapFlex margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
-            <CheckCircleOutlined />
+            <i class="pi pi-check-circle"></i>
           </InputGroupAddon>
           <InputText v-model="validateCode"></InputText>
           <InputText v-model="validateCode" placeholder="验证码"></InputText>
         </InputGroup>
       </LayoutSpace>
-      <LayoutSpace wrapFlex margin="0.5rem 0">
+      <LayoutSpace wrapFlex margin="0.5rem 0" style="gap: 8px">
         <Checkbox inputId="rememberMe"></Checkbox>
         <label for="rememberMe">七天内免登录</label>
-        <Button
-          text
-          severity="secondary"
+        <!-- <Button text severity="secondary" style="cursor: default"> -->
+        <i
+          class="pi pi-exclamation-circle"
           v-tooltip.top="`勾选并登录后，规定天数内无需输入用户名和密码会自动登入系统`"
-          style="cursor: default"
-          ><QuestionCircleOutlined
-        /></Button>
+        ></i>
+        <!-- </Button> -->
         <Button label="忘记密码" text severity="info"></Button>
       </LayoutSpace>
       <div>
-        <Button id="login-btn" @click="handleLogin" label="登录" severity="info"></Button>
+        <Button id="login-btn" @click="handleLogin" type="submit" label="登录" severity="info"></Button>
       </div>
       <LayoutSpace wrapFlex margin="1rem 0" style="justify-content: space-around">
         <Button label="手机登录" severity="secondary" outlined></Button>

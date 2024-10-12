@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import '@logicflow/core/lib/style/index.css'
 import LogicFlow from '@logicflow/core'
 import { Menu } from '@logicflow/extension'
 

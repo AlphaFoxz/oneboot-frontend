@@ -1,9 +1,18 @@
 const router = useRouter()
 
+// FIXME: 临时菜单
 export const menuItems = [
   {
-    label: '主页',
-    icon: 'pi pi-clock',
+    label: '首页',
+    icon: 'pi pi-home',
+    command() {
+      router.push('/admin/welcome')
+    },
+  },
+  {
+    label: '权限管理',
+    icon: 'pi pi-users',
+    items: [[{ label: 'test' }]],
   },
   {
     label: '组件演示',

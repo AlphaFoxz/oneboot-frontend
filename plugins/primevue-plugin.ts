@@ -1,3 +1,4 @@
+import 'primeicons/primeicons.css'
 import Aura from '@primevue/themes/aura'
 import Tooltip from 'primevue/tooltip'
 import ToastService from 'primevue/toastservice'

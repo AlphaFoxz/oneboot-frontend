@@ -1,38 +1,23 @@
 import { createStore } from 'tinybase/with-schemas'
 import { createLocalPersister } from 'tinybase/persisters/persister-browser/with-schemas'
 
-const isReady = ref(false)
-async function untilReady() {
-  return new Promise<void>((resolve) => {
-    if (isReady.value) {
-      resolve()
-    } else {
-      setTimeout(() => {
-        untilReady().then(resolve)
-      }, 100)
-    }
-  })
-}
 const store = createStore().setValuesSchema({
   colorMode: { type: 'string' },
   layout: { type: 'string' },
 })
-const persister = createLocalPersister(store, 'userPreferenceStore')
-persister.load().then(() => {
-  isReady.value = true
+const persister = shallowRef(createLocalPersister(store, 'userPreferenceStore'))
+persister.value.load().then((p) => {
+  p.startAutoSave()
+  currentColorMode.value = (store.getValue('colorMode') as ColorModeType) || 'light'
 })
 
 // ================== 主题颜色 ====================
 type ColorModeType = 'light' | 'dark'
 const currentColorMode = ref<ColorModeType>('light')
-watch(isReady, () => {
-  currentColorMode.value = store.getValue('colorMode') as ColorModeType
-})
 async function setColorMode(value: ColorModeType) {
-  await untilReady()
+  // await untilReady()
   currentColorMode.value = value
   store.setValue('colorMode', value)
-  await persister.save()
 }
 const svgColor = ref()
 watchEffect(() => {

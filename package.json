@@ -10,11 +10,11 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@ant-design/icons-vue": "^7.0.1",
     "@logicflow/core": "^2.0.6",
     "@logicflow/extension": "^2.0.10",
     "@primevue/themes": "^4.1.0",
     "nuxt": "^3.13.2",
+    "primeicons": "^7.0.0",
     "primevue": "^4.1.0",
     "tinybase": "^5.3.2",
     "vue": "^3.5.12",

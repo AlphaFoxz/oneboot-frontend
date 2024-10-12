@@ -1,3 +1,4 @@
+import '@logicflow/core/lib/style/index.css'
 import LogicFlow from '@logicflow/core'
 import { Control, Menu, DndPanel } from '@logicflow/extension'
 

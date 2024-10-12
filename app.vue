@@ -7,6 +7,7 @@ const userPreferenceStore = useUserPreferenceStore()
 const colorMode = useColorMode()
 colorMode.preference = userPreferenceStore.state.colorMode.value
 watch(userPreferenceStore.state.colorMode, (v) => {
+  colorMode.preference = v
   colorMode.value = v
 })
 

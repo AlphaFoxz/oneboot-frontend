@@ -6,7 +6,10 @@
     </div>
     <div class="openedTab"></div>
     <LayoutSpace wrapFlex class="content" margin="0">
-      <slot></slot>
+      <Suspense timeout="0">
+        <slot></slot>
+        <template #fallback> loading... </template>
+      </Suspense>
     </LayoutSpace>
   </div>
 </template>
@@ -16,5 +19,6 @@
   display: grid;
   height: 100%;
   grid-template-rows: 3rem 2rem 1fr;
+  grid-template-columns: 1fr;
 }
 </style>
