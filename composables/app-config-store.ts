@@ -1,12 +1,26 @@
 import { createStore } from 'tinybase/with-schemas'
 import { createLocalPersister } from 'tinybase/persisters/persister-browser/with-schemas'
 
+const isReady = ref(false)
+async function untilReady() {
+  return new Promise<void>((resolve) => {
+    if (isReady.value) {
+      resolve()
+    } else {
+      setTimeout(() => {
+        untilReady().then(resolve)
+      }, 100)
+    }
+  })
+}
 const store = createStore().setValuesSchema({
   colorMode: { type: 'string' },
   layout: { type: 'string' },
 })
 const persister = createLocalPersister(store, 'appConfigStore')
-await persister.load()
+persister.load().then(() => {
+  isReady.value = true
+})
 
 // ================== 设置：抽屉视图打开 ====================
 const optionDrawerOpened = ref(false)
@@ -16,8 +30,12 @@ function setOptionDrawerOpened(value: boolean) {
 
 // ================== 主题颜色 ====================
 type ColorModeType = 'light' | 'dark'
-const currentColorMode = ref<ColorModeType>((store.getValue('colorMode') as ColorModeType) || 'light')
+const currentColorMode = ref<ColorModeType>('light')
+watch(isReady, () => {
+  currentColorMode.value = store.getValue('colorMode') as ColorModeType
+})
 async function setColorMode(value: ColorModeType) {
+  await untilReady()
   currentColorMode.value = value
   store.setValue('colorMode', value)
   await persister.save()
