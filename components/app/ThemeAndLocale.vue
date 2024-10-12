@@ -4,13 +4,13 @@ import Popover from 'primevue/popover'
 import Listbox from 'primevue/listbox'
 
 const opRef = ref()
-const appConfigStore = useAppConfigStore()
-const isLightTheme = ref(appConfigStore.state.colorMode.value === 'light')
+const userPreferenceStore = useUserPreferenceStore()
+const isLightTheme = ref(userPreferenceStore.state.colorMode.value === 'light')
 const locale = ref()
 const handleThemeChange = () => {
-  appConfigStore.action.setColorMode(isLightTheme.value ? 'light' : 'dark')
+  userPreferenceStore.action.setColorMode(isLightTheme.value ? 'light' : 'dark')
 }
-function toggle() {
+function toggle(event: MouseEvent) {
   opRef.value.toggle(event)
 }
 </script>

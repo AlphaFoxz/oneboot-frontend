@@ -1,6 +1,7 @@
 import Aura from '@primevue/themes/aura'
 import Tooltip from 'primevue/tooltip'
 import ToastService from 'primevue/toastservice'
+import ConfirmationService from 'primevue/confirmationservice'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const primevue = usePrimeVue()
@@ -15,4 +16,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   const app = nuxtApp.vueApp
   app.directive('tooltip', Tooltip)
   app.use(ToastService)
+  app.use(ConfirmationService)
 })

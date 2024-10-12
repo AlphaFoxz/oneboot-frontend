@@ -80,6 +80,9 @@ body,
   height: 100%;
   color: var(--oneboot-c-text);
 }
+body {
+  overflow: hidden;
+}
 
 body {
   font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial,

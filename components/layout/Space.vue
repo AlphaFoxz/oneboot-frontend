@@ -1,9 +1,10 @@
 <script setup lang="ts">
-// const validTypes = ['unwrapped', 'wrapped'] as const
-// type ValidType = (typeof validTypes)[number]
-
 defineProps({
   wrapFlex: {
+    type: Boolean,
+    default: false,
+  },
+  wrapGrid: {
     type: Boolean,
     default: false,
   },
@@ -20,6 +21,11 @@ defineProps({
       <slot></slot>
     </div>
   </template>
+  <template v-else-if="wrapGrid">
+    <div :class="[$style.margin, $style.grid]">
+      <slot></slot>
+    </div>
+  </template>
   <template v-else>
     <slot :class="[$style.margin]"></slot>
   </template>
@@ -33,5 +39,10 @@ defineProps({
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.grid {
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-rows: auto;
 }
 </style>

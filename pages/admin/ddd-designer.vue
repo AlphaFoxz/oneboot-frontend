@@ -1,0 +1,3 @@
+<template>
+  <LogicFlow></LogicFlow>
+</template>

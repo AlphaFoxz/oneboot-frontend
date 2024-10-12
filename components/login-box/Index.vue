@@ -16,7 +16,7 @@ const username = ref()
 const password = ref()
 const validateCode = ref()
 const handleLogin = () => {
-  router.push('/home')
+  router.push('/welcome')
   toast.add({ severity: 'success', life: 3000, summary: '登录成功', detail: '欢迎回来' })
 }
 </script>
