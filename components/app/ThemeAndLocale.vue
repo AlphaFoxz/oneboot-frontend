@@ -38,9 +38,9 @@ function handleSelectLocale(s: string) {
       <IconsLocale style="width: 20px; height: 20px; margin-left: 6px" aria-hidden="false"></IconsLocale>
     </Button>
     <Popover ref="localePopoverRef">
-      <LayoutSpace wrap-grid margin="0" v-for="(item, index) in localeOptions" :key="index">
-        <Button text @click="handleSelectLocale" :label="item.label"></Button>
-      </LayoutSpace>
+      <LayoutGrid v-for="(item, index) in localeOptions" :key="index">
+        <Button text @click="handleSelectLocale(item.value)" :label="item.label"></Button>
+      </LayoutGrid>
     </Popover>
   </div>
 </template>

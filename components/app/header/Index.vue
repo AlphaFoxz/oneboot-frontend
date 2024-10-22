@@ -45,9 +45,9 @@ function handleOpenUserPopover(event: MouseEvent) {
     </template>
   </MegaMenu>
   <Popover ref="userPopoverRef">
-    <LayoutSpace wrap-grid v-for="(item, index) in userOprationItems" :key="index" margin="0">
+    <LayoutGrid wrapped v-for="(item, index) in userOprationItems" :key="index">
       <Button :icon="item.icon" :label="item.label" text @click="item.command"></Button>
-    </LayoutSpace>
+    </LayoutGrid>
   </Popover>
 </template>
 

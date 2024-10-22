@@ -24,23 +24,23 @@ const handleLogin = FnUtil.throttle(function () {
   <div class="login-box">
     <form class="login-form" @submit.prevent="handleLogin">
       <h1>Oneboot</h1>
-      <LayoutSpace wrapFlex margin="0.5rem 0">
+      <LayoutFlex wrapped margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
             <i class="pi pi-user"></i>
           </InputGroupAddon>
           <InputText v-model="username" placeholder="账号" />
         </InputGroup>
-      </LayoutSpace>
-      <LayoutSpace wrapFlex margin="0.5rem 0">
+      </LayoutFlex>
+      <LayoutFlex wrapped margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
             <i class="pi pi-key"></i>
           </InputGroupAddon>
           <Password v-model="password" :feedback="false" placeholder="密码" />
         </InputGroup>
-      </LayoutSpace>
-      <LayoutSpace wrapFlex margin="0.5rem 0">
+      </LayoutFlex>
+      <LayoutFlex wrapped margin="0.5rem 0">
         <InputGroup>
           <InputGroupAddon>
             <i class="pi pi-check-circle"></i>
@@ -48,8 +48,8 @@ const handleLogin = FnUtil.throttle(function () {
           <InputText v-model="validateCode"></InputText>
           <InputText v-model="validateCode" placeholder="验证码"></InputText>
         </InputGroup>
-      </LayoutSpace>
-      <LayoutSpace wrapFlex margin="0.5rem 0" style="gap: 8px">
+      </LayoutFlex>
+      <LayoutFlex wrapped margin="0.5rem 0" style="gap: 8px">
         <Checkbox inputId="rememberMe"></Checkbox>
         <label for="rememberMe">七天内免登录</label>
         <!-- <Button text severity="secondary" style="cursor: default"> -->
@@ -59,15 +59,15 @@ const handleLogin = FnUtil.throttle(function () {
         ></i>
         <!-- </Button> -->
         <Button label="忘记密码" text severity="info"></Button>
-      </LayoutSpace>
+      </LayoutFlex>
       <div>
         <Button id="login-btn" @click="handleLogin" type="submit" label="登录" severity="info"></Button>
       </div>
-      <LayoutSpace wrapFlex margin="1rem 0" style="justify-content: space-around">
+      <LayoutFlex wrapped margin="1rem 0" style="justify-content: space-around">
         <Button label="手机登录" severity="secondary" outlined></Button>
         <Button label="二维码登录" severity="secondary" outlined></Button>
         <Button label="注册" severity="secondary" outlined></Button>
-      </LayoutSpace>
+      </LayoutFlex>
       <div>
         <Divider><label>第三方登录</label></Divider>
       </div>

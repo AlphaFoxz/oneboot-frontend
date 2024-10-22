@@ -5,12 +5,12 @@
       <AppHeader></AppHeader>
     </div>
     <div class="openedTab"></div>
-    <LayoutSpace wrapFlex class="content" margin="0">
+    <LayoutFlex wrapped class="content">
       <Suspense timeout="0">
         <slot></slot>
         <template #fallback> loading... </template>
       </Suspense>
-    </LayoutSpace>
+    </LayoutFlex>
   </div>
 </template>
 
